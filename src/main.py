@@ -59,7 +59,7 @@ def setup_browser():
     options.add_argument('--ignore-certificate-errors')
     options.add_argument('--no-sandbox')
     options.add_argument('--disable-dev-shm-usage')
-    options.add_argument('--headless')
+    # options.add_argument('--headless')
 
     return Remote(
         command_executor=os.getenv("SELENIUM_CONTAINER"),
