@@ -6,9 +6,11 @@ from dotenv import load_dotenv
 from pymongo import MongoClient
 from PIL import Image, ImageDraw, ImageFont
 from io import BytesIO
+import selenium
 
 from selenium.webdriver import ChromeOptions, Remote
 from selenium.webdriver.common.by import By
+from selenium.common.exceptions import NoSuchAttributeException
 from time import sleep
 
 def get_joke(url):
@@ -63,9 +65,13 @@ def setup_browser():
 
 def upload_to_ig(browser, username, password, image_path, caption):
     browser.get("https://instagram.com")
-    sleep(5)
-    button = browser.find_element(by=By.XPATH, value="/html/body/div[4]/div/div/button[1]")
-    button.click()
+    
+    sleep(10)
+    try:
+        button = browser.find_element(by=By.XPATH, value="/html/body/div[4]/div/div/button[1]")
+        button.click()
+    except NoSuchAttributeException as e:
+        logging.error(e)
 
     sleep(5)
     username_input = browser.find_element(by=By.XPATH, value="/html/body/div[1]/section/main/article/div[2]/div[1]/div[2]/form/div/div[1]/div/label/input")
