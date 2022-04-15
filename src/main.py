@@ -34,7 +34,7 @@ def prepare_joke(joke, size=35):
     lines = textwrap.wrap(joke, size,  break_long_words=False)
     return "\n".join(lines)
 
-def generate_image(joke, watermark='@boobiestabubies', size=(1080, 1080), font_color=(255, 255, 0), font_path="/home/markus/automated_instagram/chucks_jokes/src/font/Monerd-Bold.ttf", background_color='blue'):
+def generate_image(joke, watermark='@boobiestabubies', size=(1080, 1080), font_color=(255, 255, 0), font_path="./src/font/Monerd-Bold.ttf", background_color='blue'):
     
     font = ImageFont.truetype(BytesIO(open(font_path, "rb").read()), size=72)
     watermark_font = ImageFont.truetype(BytesIO(open(font_path, "rb").read()), size=32)
@@ -123,7 +123,7 @@ def main():
         # generate image
         image = generate_image(prepare_joke(joke['value']))
 
-        img_path = "/home/markus/automated_instagram/chucks_jokes/media/tempimg.jpeg"
+        img_path = "./media/tempimg.jpeg"
         with open(img_path, "w") as save_file:
             image.save(save_file)
         
