@@ -30,7 +30,7 @@ jobs:
     - name: Prepare Selenium
        # https://github.com/marketplace/actions/setup-chromedriver
       uses: nanasess/setup-chromedriver@master
-    - name: Launch browser
+    #- name: Launch browser
     - name: Start XVFB
       run: |
         google-chrome --version
