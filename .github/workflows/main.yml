@@ -15,7 +15,7 @@ permissions:
 env:
   URL: https://api.chucknorris.io/jokes/random
   MONGO_URL: ${{ secrets.MONGOURL }}
-  SELENIUM_CONTAINER: http://localhost:4444/wd/hub
+  SELENIUM_CONTAINER: http://localhost/wd/hub
   IG_USER: boobiestabubies
   IG_PASSWD: ${{ secrets.IGPASSWD }}
 
@@ -25,9 +25,21 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
+
+
+    - name: Prepare Selenium
+       # https://github.com/marketplace/actions/setup-chromedriver
+      uses: nanasess/setup-chromedriver@master
+    - name: Launch browser
+    - name: Start XVFB
+       run: |
+        google-chrome --version
+        export DISPLAY=:99
+        chromedriver --url-base=/wd/hub &
+         sudo Xvfb -ac :99 -screen 0 1280x1024x24 > /dev/null 2>&1 & # optional, disables headless mode
     
-    - name: Init Selenium Container
-      run: docker run -d -p 4444:4444 -v /dev/shm:/dev/shm selenium/standalone-chrome
+    #- name: Init Selenium Container
+    #  run: docker run -d -p 4444:4444 -v /dev/shm:/dev/shm selenium/standalone-chrome
     
     - name: Set up Python 3.10
       uses: actions/setup-python@v3
