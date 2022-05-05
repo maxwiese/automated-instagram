@@ -6,9 +6,13 @@ from dotenv import load_dotenv
 from pymongo import MongoClient
 from PIL import Image, ImageDraw, ImageFont
 from io import BytesIO
-import selenium
 
-from selenium.webdriver import ChromeOptions, Remote
+from selenium import webdriver
+from webdriver_manager.chrome import ChromeDriverManager
+from webdriver_manager.utils import ChromeType
+from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.chrome.service import Service
+
 from selenium.webdriver.common.by import By
 from selenium.common.exceptions import NoSuchAttributeException
 from time import sleep
@@ -54,17 +58,24 @@ def generate_image(joke, watermark='@boobiestabubies', size=(1080, 1080), font_c
 
 
 def setup_browser():
-    options = ChromeOptions()
-    options.add_argument('--ignore-ssl-errors=yes')
-    options.add_argument('--ignore-certificate-errors')
-    options.add_argument('--no-sandbox')
-    options.add_argument('--disable-dev-shm-usage')
-    # options.add_argument('--headless')
 
-    return Remote(
-        command_executor=os.getenv("SELENIUM_CONTAINER"),
-        options=options
-    )
+    chrome_options = Options()
+    options = [
+        "--headless",
+        "--disable-gpu",
+        "--window-size=1920,1200",
+        "--ignore-certificate-errors",
+        "--disable-extensions",
+        "--no-sandbox",
+        "--disable-dev-shm-usage"
+    ]
+
+    for option in options:
+        chrome_options.add_argument(option)
+
+    chrome_service = Service(ChromeDriverManager(chrome_type=ChromeType.CHROMIUM).install())
+
+    return webdriver.Chrome(service=chrome_service, options=chrome_options)
 
 def upload_to_ig(browser, username, password, image_path, caption):
     browser.get("https://instagram.com")

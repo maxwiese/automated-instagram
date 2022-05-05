@@ -46,4 +46,5 @@ typer==0.4.0
 typing-extensions==4.1.1
 urllib3==1.26.9
 wasabi==0.9.0
+webdriver-manager==3.5.4
 wsproto==1.1.0
