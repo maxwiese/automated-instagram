@@ -87,7 +87,7 @@ def upload_to_ig(browser, username, password, image_path, caption):
     except NoSuchAttributeException as e:
         logging.error(e)
     except NoSuchElementException as e:
-        logging.error(e)
+        logging.info("no cookie popup")
 
     sleep(5)
     username_input = browser.find_element(by=By.XPATH, value="/html/body/div[1]/section/main/article/div[2]/div[1]/div[2]/form/div/div[1]/div/label/input")
@@ -145,7 +145,7 @@ def main():
         # generate image
         image = generate_image(prepare_joke(joke['value']))
 
-        img_path = "./media/tempimg.jpeg"
+        img_path = "tempimg.jpeg"
         with open(img_path, "w") as save_file:
             image.save(save_file)
         
