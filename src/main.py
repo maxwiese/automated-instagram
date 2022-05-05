@@ -14,7 +14,7 @@ from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.chrome.service import Service
 
 from selenium.webdriver.common.by import By
-from selenium.common.exceptions import NoSuchAttributeException
+from selenium.common.exceptions import NoSuchAttributeException, NoSuchElementException
 from time import sleep
 
 def get_joke(url):
@@ -85,6 +85,8 @@ def upload_to_ig(browser, username, password, image_path, caption):
         button = browser.find_element(by=By.XPATH, value="/html/body/div[4]/div/div/button[1]")
         button.click()
     except NoSuchAttributeException as e:
+        logging.error(e)
+    except NoSuchElementException as e:
         logging.error(e)
 
     sleep(5)
