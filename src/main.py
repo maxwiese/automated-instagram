@@ -145,7 +145,7 @@ def main():
         # generate image
         image = generate_image(prepare_joke(joke['value']))
 
-        img_path = "tempimg.jpeg"
+        img_path = "/tmp/img.jpeg"
         with open(img_path, "w") as save_file:
             image.save(save_file)
         
