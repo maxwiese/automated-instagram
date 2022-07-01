@@ -5,7 +5,7 @@ name: Run Main App
 
 on:
   schedule:
-    - cron: "0 10,18 * * *" # run every day at 10 and 18 o'clock
+    - cron: "0 18 * * 1" # run on monday at 18 o'clock
 
 permissions:
   contents: read
